@@ -2,7 +2,7 @@ Heroku buildpack: Hugo
 ===
 
 This is a [Heroku buildpack](https://devcenter.heroku.com/articles/buildpacks)
-for sites powered by [Hugo](https://github.com/spf13/hugo).
+for sites powered by [Hugo](https://github.com/gohugoio/hugo).
 It uses the latest stable version of Hugo.
 
 Usage
