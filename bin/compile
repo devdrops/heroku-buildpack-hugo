@@ -9,6 +9,10 @@ ENV_DIR=$3
 # Default Hugo version
 DEFAULT_HUGO_VERSION="0.74.3"
 
+echo "\n BUILD DIR: ${BUILD_DIR}"
+echo "\n CACHE DIR: ${CACHE_DIR}"
+echo "\n ENV DIR: ${ENV_DIR}"
+
 # attempt to extract the HUGO_VERSION parameter form the Heroku configuration vars, fall back to the default version if unavailable
 if [ -d "$ENV_DIR" -a -e "$ENV_DIR/HUGO_VERSION" ]; then
   export HUGO_VERSION=$(cat "$ENV_DIR/HUGO_VERSION")
@@ -62,19 +66,10 @@ if [ -x "$PRE_BUILD_SCRIPT" ]; then
   $PRE_BUILD_SCRIPT "$BUILD_DIR" "$CACHE_DIR" "$ENV_DIR"
 fi
 
-# Fetch a theme specified in the .hugotheme file
-if [ -e $BUILD_DIR/.hugotheme ]; then
-  echo "\n-----> Getting the theme"
-  THEME_URL="`cat $BUILD_DIR/.hugotheme`"
-  rm -rf $BUILD_DIR/themes && mkdir $BUILD_DIR/themes && cd $BUILD_DIR/themes
-  git clone $THEME_URL
-fi
-
 # Build the site
-echo "\n-----> Building the site"
-cd $BUILD_DIR
-mkdir -p static
-./hugo --cleanDestinationDir --ignoreCache
+#echo "\n-----> Building the site"
+#cd $BUILD_DIR
+#./hugo --cleanDestinationDir --ignoreCache
 
 # if the user has a script/post-hugo-build script, run that
 POST_BUILD_SCRIPT="$BUILD_DIR/script/post-hugo-build"
